@@ -1,26 +1,21 @@
 import React from 'react';
 import { TodoListItem } from './TodoListItem.tsx';
-import { FilterTypes, Todos } from '../TodoApp.types';
+import { AppContext } from '../App.tsx';
 
-interface TodoListProps {
-  filter: FilterTypes;
-  toggleCompleted: (id: string) => void;
-  todos: Todos;
-}
 
-export const TodoList = (props: TodoListProps) => {
-  const { todos, filter, toggleCompleted } = props
+export const TodoList = () => {
+  const { getTodos, getFilter } = React.useContext(AppContext);
 
-  const filteredTodos = todos.filter((todo) => {
+  const filteredTodos = getTodos().filter((todo) => {
     if (todo.status === 'cleared') {
       return false;
     }
 
-    if (filter === 'all') {
+    if (getFilter() === 'all') {
       return true;
-    } else if (filter === 'completed') {
+    } else if (getFilter() === 'completed') {
       return todo.status === 'completed';
-    } else if (filter === 'active') {
+    } else if (getFilter() === 'active') {
       return todo.status === 'active';
     }
 
@@ -30,7 +25,7 @@ export const TodoList = (props: TodoListProps) => {
   return (
     <ul className='todos'>
       {filteredTodos.map((todo) => <TodoListItem key={todo.id} 
-        {...todo} toggleCompleted={toggleCompleted} />)}
+        {...todo} />)}
     </ul>
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react';
+import { AppContext } from '../App.tsx';
 
-export const TodoFooter = (props) => {
-  const { clearCompleted, todos } = props;
-  const itemCount = todos.filter((todo) => todo.status === 'active').length;
+export const TodoFooter = () => {
+  const { clearCompleted, getTodos } = React.useContext(AppContext);
+  const itemCount = getTodos().filter((todo) => todo.status === 'active').length;
 
   return (
     <footer>

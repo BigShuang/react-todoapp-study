@@ -2,7 +2,9 @@ import React from 'react';
 import { TodoHeader } from './components/TodoHeader.tsx';
 import { TodoList } from './components/TodoList.tsx';
 import { TodoFooter } from './components/TodoFooter.tsx';
-import { Todo, Todos, FilterTypes } from './TodoApp.types';
+import { Todo, Todos, FilterTypes, AppContextProps } from './TodoApp.types';
+
+export const AppContext = React.createContext<AppContextProps>(undefined);
 
 const defaultTodos: Todos = [
   {
@@ -70,11 +72,26 @@ export const TodoApp = () => {
     setFilter(filter);
   }
 
+  const getFilter = () => {
+    return filter;
+  }
+
+  const getTodos = () => {
+    return todos;
+  }
+
   return (
-    <div>
-      <TodoHeader filter={filter} changeFilter={changeFilter} addTodo={addTodo} />
-      <TodoList todos={todos} filter={filter} toggleCompleted={toggleCompleted} />
-      <TodoFooter todos={todos} clearCompleted={clearCompleted} />
-    </div>
+    <AppContext.Provider value={{
+      addTodo,
+      toggleCompleted,
+      clearCompleted,
+      changeFilter,
+      getFilter,
+      getTodos
+    }}>
+      <TodoHeader />
+      <TodoList />
+      <TodoFooter />
+    </AppContext.Provider>
   )
 }
