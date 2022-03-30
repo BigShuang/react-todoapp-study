@@ -1,7 +1,14 @@
 import React from 'react';
 import { TodoListItem } from './TodoListItem.tsx';
+import { FilterTypes, Todos } from '../TodoApp.types';
 
-export const TodoList = (props) => {
+interface TodoListProps {
+  filter: FilterTypes;
+  toggleCompleted: (id: string) => void;
+  todos: Todos;
+}
+
+export const TodoList = (props: TodoListProps) => {
   const { todos, filter, toggleCompleted } = props
 
   const filteredTodos = todos.filter((todo) => {

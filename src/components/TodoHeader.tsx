@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const TodoHeader = (props) => {
-  const [inputText, setInputText] = React.useState('');
-  const { filter, setFilter, addTodo } = props;
+  const [inputText, setInputText] = React.useState<string>('');
+  const { filter, changeFilter, addTodo } = props;
 
   const onInput = (e) => {
     setInputText(e.target.value);
@@ -17,12 +17,12 @@ export const TodoHeader = (props) => {
   }
 
   const onFilter = (e) => {
-    setFilter(e.currentTarget.textContent);
+    changeFilter(e.currentTarget.textContent);
   }
 
   return (
     <header>
-      <h1>todos<small>(Basic implementation)</small></h1>
+      <h1>todos</h1>
       <div className="addTodo">
         <input className="textfield" placeholder="add todo" 
           value={inputText} onChange={onInput} />
