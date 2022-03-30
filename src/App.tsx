@@ -29,10 +29,22 @@ const defaultTodos = [
 export const TodoApp = props => {
   const [todos, setTodos] = React.useState(defaultTodos);
 
+  const toggleCompleted = (id) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {...todo, status: todo.status === 'active' ? 'completed' : 'active' };
+      } else {
+        return todo;
+      }
+    })
+
+    setTodos(newTodos);
+  }
+
   return (
     <div>
       <TodoHeader />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} toggleCompleted={toggleCompleted} />
       <TodoFooter />
     </div>
   )
