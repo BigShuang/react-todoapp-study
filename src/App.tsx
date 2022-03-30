@@ -53,11 +53,23 @@ export const TodoApp = props => {
     setTodos(newTodos);
   }
 
+  const clearCompleted = () => {
+    const updateTodos = todos.map((todo) => {
+      if (todo.status === 'completed') {
+        return {...todo, status: 'cleared'};
+      } else {
+        return todo;
+      }
+    })
+
+    setTodos(updateTodos);
+  }
+
   return (
     <div>
       <TodoHeader filter={filter} setFilter={setFilter} addTodo={addTodo} />
       <TodoList todos={todos} filter={filter} toggleCompleted={toggleCompleted} />
-      <TodoFooter />
+      <TodoFooter todos={todos} clearCompleted={clearCompleted} />
     </div>
   )
 }

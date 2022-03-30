@@ -1,10 +1,13 @@
 import React from 'react';
 
-export const TodoFooter = () => {
+export const TodoFooter = (props) => {
+  const { clearCompleted, todos } = props;
+  const itemCount = todos.filter((todo) => todo.status === 'active').length;
+
   return (
     <footer>
-      <span>4 items left</span>
-      <button className="submit">Clear Completed</button>
+      <span>{itemCount} item{itemCount === 1 ? '' : 's'} left</span>
+      <button className="submit" onClick={clearCompleted} >Clear Completed</button>
     </footer>
   )
 }
