@@ -27,7 +27,19 @@ const defaultTodos = [
 ]
 
 export const TodoApp = props => {
+  const [filter, setFilter] = React.useState('all');
   const [todos, setTodos] = React.useState(defaultTodos);
+
+  const addTodo = (label) => {
+    const getId = () => Date.now().toString();
+    const newTodo = {
+      id: getId(),
+      label: label,
+      status: 'active',
+    };
+
+    setTodos([...todos, newTodo])
+  }
 
   const toggleCompleted = (id) => {
     const newTodos = todos.map((todo) => {
@@ -43,8 +55,8 @@ export const TodoApp = props => {
 
   return (
     <div>
-      <TodoHeader />
-      <TodoList todos={todos} toggleCompleted={toggleCompleted} />
+      <TodoHeader filter={filter} setFilter={setFilter} addTodo={addTodo} />
+      <TodoList todos={todos} filter={filter} toggleCompleted={toggleCompleted} />
       <TodoFooter />
     </div>
   )
