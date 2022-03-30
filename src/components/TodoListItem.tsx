@@ -1,10 +1,12 @@
 import React from 'react';
 
-export const TodoListItem = () => {
+export const TodoListItem = (props) => {
+  const {id, label, status} = props;
+
   return (
     <li className="todo">
       <label>
-        <input type="checkbox" /> Todo 1
+        <input type="checkbox" checked={status === 'completed'} /> {label}
       </label>
     </li>
   )
